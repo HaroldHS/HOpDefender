@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+	<head>
+		<title>
+			Test HOpDefender.js
+		</title>
+		<!-- Make sure to insert the HOpDefender.js inside "head" tag -->
+		<script src="HOpDefender.js"></script>
+		<!-- Here is the example of all features in HOpDefender.js -->
+		<script>
+			function runAllFeatures(){
+				// Create a new object
+				var code_ = new HOpDefender();
+				// Run all features
+				var a = code_.sanitize(document.getElementById("input1").value, "FORCE_HTTP"); // Make sure for block type is a string
+				var b = code_.sandboxedSanitizing(document.getElementById("input2").value, "font-size: 40px;border: 0px none;");
+				var c = code_.filter(document.getElementById("input3").value);
+				/*
+				 * Print all the results to the div tags
+				 *
+				 * NOTE : For sandbozedSanitizing, dont forget to use appendChild ( sandboxedSanitizing returns an iframe which is an object )
+				 *
+				 */
+				document.getElementById("resultSanitize").innerHTML = a;
+				document.getElementById("resultSandboxedSanitize").appendChild(b);
+				document.getElementById("resultFilter").innerHTML = c;
+			}
+		</script>
+	</head>
+	<body>
+		<table align="center" style="text-align: center;">
+			<tr>
+				<td colspan="2">
+					<br><h1><b>Testing page for HOpDefender.js</b></h1><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Sanitize : 
+				</td>
+				<td>
+					<input type="text" id="input1" size="140"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Sandboxed sanitizing : 
+				</td>
+				<td>
+					<input type="text" id="input2" size="140"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Filter : 
+				</td>
+				<td>
+					<input type="text" id="input3" size="140"><br>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<br><input type="button" value="TEST" onclick="runAllFeatures()">
+				</td>
+			</tr>
+		</table><br>
+		<div id="resultSanitize"></div><br>
+		<div id="resultSandboxedSanitize"></div><br>
+		<div id="resultFilter"></div>
+		<!-- You can add the script below to make sure that the client runs / has the HOpDefender.js file to prevent SELF XSS -->
+		<script>
+			if (!HOpDefender_is_present){
+				// You can change this alert with anything you want
+				alert("[-] HOpDefender.js not found");
+			}
+		</script>
+	</body>
+</html>
